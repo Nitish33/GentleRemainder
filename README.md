@@ -24,10 +24,7 @@ This folder will include all the helper functions and constants like Color token
 
 
 <h1>Recording</h1>
-<video style="width: 400px; height: 400px;" controls>
-  <source src="./example/recording.mp4" type="video/mp4" />
-  Your browser does not support the video tag.
-</video>
+[Watch the Recording](https://www.youtube.com/watch?v=vG4JFjJWP8A)
 
 <h1>Implementation Details</h1>
 This implementation looks simple as first but really tends to get complex due to implementation of React Navigation.  
