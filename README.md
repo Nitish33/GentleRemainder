@@ -24,7 +24,7 @@ This folder will include all the helper functions and constants like Color token
 
 
 <h1>Recording</h1>
-![Demo](./example/recording.gif)
+[Watch the Recording](https://www.youtube.com/watch?v=vG4JFjJWP8A)
 
 <h1>Implementation Details</h1>
 This implementation looks simple as first but really tends to get complex due to implementation of React Navigation.  
