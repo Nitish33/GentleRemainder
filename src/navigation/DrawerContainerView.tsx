@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, Pressable, View} from 'react-native';
+import {Dimensions, Platform, Pressable, StatusBar, View} from 'react-native';
 import {useDrawerProgress} from '@react-navigation/drawer';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -59,12 +59,19 @@ export default function DrawerContainerView(props) {
 
   const {top} = useSafeAreaInsets();
 
+  const topPadding =
+    Platform.OS === 'android' ? StatusBar.currentHeight ?? 0 : top;
+
   const notchAnimatedStyle = useAnimatedStyle(() => {
     return {
       backgroundColor: Colors.LIGHT,
-      paddingTop: interpolate(animated.value, [0, 1], [top, top / 2]),
+      paddingTop: interpolate(
+        animated.value,
+        [0, 1],
+        [topPadding, topPadding / 2],
+      ),
     };
-  }, [top]);
+  }, [topPadding]);
 
   return (
     <View style={{flex: 1}}>
