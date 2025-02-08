@@ -1,0 +1,62 @@
+diff --git a/node_modules/react-native-drawer-layout/lib/commonjs/views/Drawer.native.js b/node_modules/react-native-drawer-layout/lib/commonjs/views/Drawer.native.js
+index e7785ee..90c2171 100644
+--- a/node_modules/react-native-drawer-layout/lib/commonjs/views/Drawer.native.js
++++ b/node_modules/react-native-drawer-layout/lib/commonjs/views/Drawer.native.js
+@@ -231,7 +231,7 @@ function Drawer({
+       // FIXME: Reanimated skips committing to the shadow tree if no layout props are animated
+       // This results in pressables not getting their correct position and can't be pressed
+       // So we animate the zIndex to force the commit - it doesn't affect the drawer visually
+-      zIndex: translateX.value === 0 ? 0 : 1,
++      // zIndex: translateX.value === 0 ? 0 : 1,
+       transform: drawerType === 'permanent' ?
+       // Reanimated needs the property to be present, but it results in Browser bug
+       // https://bugs.chromium.org/p/chromium/issues/detail?id=20574
+@@ -245,15 +245,11 @@ function Drawer({
+   const contentAnimatedStyle = (0, _reactNativeReanimated.useAnimatedStyle)(() => {
+     return {
+       // FIXME: Force Reanimated to commit to the shadow tree
+-      zIndex: translateX.value === 0 ? 0 : drawerType === 'back' ? 2 : 1,
++      // zIndex: translateX.value === 0 ? 0 : drawerType === 'back' ? 2 : 1,
+       transform: drawerType === 'permanent' ?
+       // Reanimated needs the property to be present, but it results in Browser bug
+       // https://bugs.chromium.org/p/chromium/issues/detail?id=20574
+-      [] : [{
+-        translateX:
+-        // The screen content stays in place when `drawerType` is `front`
+-        drawerType === 'front' ? 0 : translateX.value + drawerWidth * (drawerPosition === 'left' ? 1 : -1)
+-      }]
++      [] : []
+     };
+   }, [drawerPosition, drawerType, drawerWidth, translateX]);
+   const progress = (0, _reactNativeReanimated.useDerivedValue)(() => {
+@@ -268,23 +264,20 @@ function Drawer({
+         children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_GestureHandler.GestureDetector, {
+           gesture: pan,
+           children: /*#__PURE__*/(0, _jsxRuntime.jsxs)(_reactNativeReanimated.default.View, {
+-            style: [styles.main, {
++            style: [styles.main, 
++              {overflow: 'visible'},
++              {
+               flexDirection: drawerType === 'permanent' ? isRight && direction === 'ltr' || !isRight && direction === 'rtl' ? 'row' : 'row-reverse' : 'row'
+             }],
+             children: [/*#__PURE__*/(0, _jsxRuntime.jsxs)(_reactNativeReanimated.default.View, {
+-              style: [styles.content, contentAnimatedStyle],
++              pointerEvents: isOpen ? "none" : 'auto',
++              style: [styles.content, {overflow: 'visible'}, contentAnimatedStyle],
+               children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_reactNative.View, {
+                 accessibilityElementsHidden: isOpen && drawerType !== 'permanent',
+                 importantForAccessibility: isOpen && drawerType !== 'permanent' ? 'no-hide-descendants' : 'auto',
+-                style: styles.content,
++                style: [styles.content, {overflow: 'visible'},],
+                 children: children
+-              }), drawerType !== 'permanent' ? /*#__PURE__*/(0, _jsxRuntime.jsx)(_Overlay.Overlay, {
+-                open: open,
+-                progress: progress,
+-                onPress: () => toggleDrawer(false),
+-                style: overlayStyle,
+-                accessibilityLabel: overlayAccessibilityLabel
+-              }) : null]
++              })]
+             }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_reactNativeReanimated.default.View, {
+               removeClippedSubviews: _reactNative.Platform.OS !== 'ios',
+               style: [styles.drawer, {
